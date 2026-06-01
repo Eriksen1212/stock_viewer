@@ -6,6 +6,17 @@ import StockDetail from '../components/StockDetail';
 
 const SECTIONS = [
   {
+    key: 'korea',
+    label: '한국시장',
+    icon: '🇰🇷',
+    items: [
+      { symbol: '005930.KS', name: '삼성전자' },
+      { symbol: '000660.KS', name: 'SK하이닉스' },
+      { symbol: '^KS11',     name: 'KOSPI 지수' },
+      { symbol: '^KQ11',     name: 'KOSDAQ 지수' },
+    ],
+  },
+  {
     key: 'indices',
     label: '주가지수 선물',
     icon: '📊',
@@ -55,17 +66,6 @@ const SECTIONS = [
     icon: '₿',
     items: [
       { symbol: 'BTC=F', name: '비트코인 선물 (CME)' },
-    ],
-  },
-  {
-    key: 'korea',
-    label: '한국시장',
-    icon: '🇰🇷',
-    items: [
-      { symbol: '005930.KS', name: '삼성전자' },
-      { symbol: '000660.KS', name: 'SK하이닉스' },
-      { symbol: '^KS11',     name: 'KOSPI 지수' },
-      { symbol: '^KQ11',     name: 'KOSDAQ 지수' },
     ],
   },
 ];
