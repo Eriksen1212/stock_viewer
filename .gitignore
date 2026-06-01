@@ -1,0 +1,19 @@
+# MCP 설정 (액세스 토큰 포함)
+.mcp.json
+.claude/
+
+# 환경변수
+.env
+.env.local
+.env.*.local
+
+# 의존성
+node_modules/
+
+# 로그
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
