@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { ThemeContext } from './ThemeContext';
 import IndexCard from './components/IndexCard';
@@ -117,6 +118,15 @@ export default function App() {
                 <SearchBar onSelect={setSearchedStock} />
                 <div className="flex items-center gap-2 flex-wrap">
                   {lastUpdated && <span className={timeCls}>업데이트: {lastUpdated.toLocaleTimeString('ko-KR')}</span>}
+                  <Link
+                    to="/futures"
+                    className={isSpecial
+                      ? 'text-sm px-4 py-2 rounded-lg bg-purple-100 hover:bg-purple-200 text-purple-700 transition-colors whitespace-nowrap font-medium'
+                      : 'text-sm px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white transition-colors whitespace-nowrap font-medium'
+                    }
+                  >
+                    📈 선물 시세
+                  </Link>
                   <button onClick={fetchIndices} className={refreshCls}>새로고침</button>
                   {isSpecial ? (
                     <button
