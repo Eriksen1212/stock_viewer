@@ -86,34 +86,34 @@ export default function StockDetail({ symbol, name, onClose }) {
 
   return (
     <div className={cardCls}>
-      <div className="flex justify-between items-start mb-4">
-        <div>
-          <div className="flex items-center gap-3">
-            <h2 className={`text-xl font-bold ${titleCls}`}>{data?.name || name}</h2>
-            <span className={`text-xs px-2 py-0.5 rounded font-medium ${tagCls}`}>{symbol}</span>
-            {data?.exchange && <span className={`text-xs ${exchangeCls}`}>{data.exchange}</span>}
+      <div className="flex justify-between items-start mb-4 gap-2">
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2 flex-wrap">
+            <h2 className={`text-lg sm:text-xl font-bold ${titleCls}`}>{data?.name || name}</h2>
+            <span className={`text-xs px-2 py-0.5 rounded font-medium shrink-0 ${tagCls}`}>{symbol}</span>
+            {data?.exchange && <span className={`text-xs shrink-0 ${exchangeCls}`}>{data.exchange}</span>}
           </div>
           {loading && <div className={`text-sm mt-1 ${isSpecial ? 'text-purple-400' : 'text-slate-400'}`}>로딩 중...</div>}
           {!loading && data && (
-            <div className="flex items-end gap-3 mt-2">
-              <span className={`text-3xl font-bold ${upCls}`}>
+            <div className="flex items-baseline gap-2 flex-wrap mt-2">
+              <span className={`text-2xl sm:text-3xl font-bold ${upCls}`}>
                 {fmtNum(data.price, data.currency)}
-                <span className={`text-base font-normal ml-1 ${isSpecial ? 'text-gray-400' : 'text-slate-400'}`}>{data.currency}</span>
+                <span className={`text-sm font-normal ml-1 ${isSpecial ? 'text-gray-400' : 'text-slate-400'}`}>{data.currency}</span>
               </span>
-              <span className={`text-sm font-medium pb-1 ${upCls}`}>
+              <span className={`text-sm font-medium ${upCls}`}>
                 {isUp ? '+' : ''}{fmtNum(data.change, data.currency)} ({isUp ? '+' : ''}{data.changePct?.toFixed(2)}%)
               </span>
             </div>
           )}
         </div>
-        <button onClick={onClose} className={`text-xl transition-colors leading-none ${isSpecial ? 'text-purple-300 hover:text-purple-600' : 'text-slate-400 hover:text-white'}`}>✕</button>
+        <button onClick={onClose} className={`text-xl transition-colors leading-none shrink-0 ${isSpecial ? 'text-purple-300 hover:text-purple-600' : 'text-slate-400 hover:text-white'}`}>✕</button>
       </div>
 
       {error && <div className="text-red-400 text-sm my-4">{error}</div>}
 
       {!error && (
         <>
-          <div className="flex gap-1 mb-4">
+          <div className="flex gap-1 flex-wrap mb-4">
             {RANGES.map(r => (
               <button key={r.value} onClick={() => setRange(r.value)}
                 className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${range === r.value ? btnActive : btnInactive}`}>

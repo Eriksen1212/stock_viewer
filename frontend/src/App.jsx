@@ -6,6 +6,7 @@ import IndexChart from './components/IndexChart';
 import SearchBar from './components/SearchBar';
 import StockDetail from './components/StockDetail';
 import ForexSection from './components/ForexSection';
+import VolumeSection from './components/VolumeSection';
 import PokemonBackground from './components/PokemonBackground';
 
 const REFRESH_INTERVAL = 30000;
@@ -33,11 +34,12 @@ export default function App() {
   const fetchIndices = useCallback(async () => {
     try {
       const { data } = await axios.get('/api/indices');
+      if (!Array.isArray(data)) throw new Error('Invalid response');
       setIndices(data);
       setLastUpdated(new Date());
       setError(null);
     } catch {
-      setError('서버에 연결할 수 없습니다. 백엔드가 실행 중인지 확인하세요.');
+      setError('데이터를 불러올 수 없습니다. 잠시 후 다시 시도하세요.');
     } finally {
       setLoading(false);
     }
@@ -111,22 +113,23 @@ export default function App() {
                 </h1>
                 <p className={statusCls}>{marketStatus()}</p>
               </div>
-              <div className="flex items-center gap-3 flex-wrap">
+              <div className="flex flex-col gap-2 w-full md:w-auto">
                 <SearchBar onSelect={setSearchedStock} />
-                {lastUpdated && <span className={timeCls}>업데이트: {lastUpdated.toLocaleTimeString('ko-KR')}</span>}
-                <button onClick={fetchIndices} className={refreshCls}>새로고침</button>
-                {/* 모드 토글 */}
-                {isSpecial ? (
-                  <button
-                    onClick={() => setIsSpecial(false)}
-                    title="일반 모드로 전환"
-                    className="text-xs bg-slate-800/60 backdrop-blur-sm text-slate-200 px-3 py-2 rounded-lg hover:bg-slate-700/80 transition-colors whitespace-nowrap"
-                  >
-                    🌑 일반 모드
-                  </button>
-                ) : (
-                  <PokeballToggle onClick={() => setIsSpecial(true)} />
-                )}
+                <div className="flex items-center gap-2 flex-wrap">
+                  {lastUpdated && <span className={timeCls}>업데이트: {lastUpdated.toLocaleTimeString('ko-KR')}</span>}
+                  <button onClick={fetchIndices} className={refreshCls}>새로고침</button>
+                  {isSpecial ? (
+                    <button
+                      onClick={() => setIsSpecial(false)}
+                      title="일반 모드로 전환"
+                      className="text-xs bg-slate-800/60 backdrop-blur-sm text-slate-200 px-3 py-2 rounded-lg hover:bg-slate-700/80 transition-colors whitespace-nowrap"
+                    >
+                      🌑 일반 모드
+                    </button>
+                  ) : (
+                    <PokeballToggle onClick={() => setIsSpecial(true)} />
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -201,6 +204,9 @@ export default function App() {
 
           {/* 환율 섹션 */}
           <ForexSection />
+
+          {/* 거래량 상위 종목 */}
+          <VolumeSection />
 
           <div className={footerCls}>
             데이터 출처: Yahoo Finance · 30초마다 자동 새로고침

@@ -75,6 +75,7 @@ export default function ForexSection() {
   const fetch = useCallback(async () => {
     try {
       const { data: res } = await axios.get('/api/forex');
+      if (!Array.isArray(res)) throw new Error('Invalid response');
       setData(res);
       setLastUpdated(new Date());
     } catch { }

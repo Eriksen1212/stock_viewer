@@ -77,9 +77,9 @@ export default function IndexChart({ indexKey, indexName, currency }) {
 
   return (
     <div className={cardCls}>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-6">
         <h2 className={`text-lg font-semibold ${titleCls}`}>{indexName} 차트</h2>
-        <div className="flex gap-1">
+        <div className="flex gap-1 flex-wrap">
           {RANGES.map(r => (
             <button key={r.value} onClick={() => setRange(r.value)}
               className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${range === r.value ? btnActive : btnInactive}`}>
